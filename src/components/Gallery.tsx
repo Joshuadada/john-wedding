@@ -45,6 +45,14 @@ export const Gallery: React.FC = () => {
       caption: 'Pure warmth, safety, and joy in each other\'s arms.',
       aspectRatio: 'vertical',
     },
+    {
+      id: 'photo-6',
+      url: '/images/pencil-sketch.jpg',
+      title: 'Fine Art Pencil Sketch',
+      category: 'artwork',
+      caption: 'A custom charcoal & pencil illustration capturing Esther & John\'s embrace.',
+      aspectRatio: 'horizontal',
+    },
   ];
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);

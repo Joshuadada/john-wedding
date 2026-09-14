@@ -23,7 +23,7 @@ export interface PhotoItem {
   id: string;
   url: string;
   title: string;
-  category: 'proposal' | 'moments' | 'ring' | 'embrace';
+  category: 'proposal' | 'moments' | 'ring' | 'embrace' | 'artwork';
   caption: string;
   aspectRatio: 'vertical' | 'horizontal' | 'square';
 }
