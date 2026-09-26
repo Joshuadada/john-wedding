@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar as CalendarIcon, Clock, MapPin, Church, PartyPopper, Music2, Download, ExternalLink } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, MapPin, Church, PartyPopper, Download, ExternalLink } from 'lucide-react';
 
 export const Itinerary: React.FC = () => {
   const events = [
     {
       title: 'Holy Matrimony & Blessing',
       time: '11:00 AM WAT',
-      location: 'Nkem Event Center',
-      address: '32 Road by MRS Filling station, Festac, Lagos',
+      location: 'Lagos',
+      address: 'Nigeria',
       description: 'Join us as Esther and John exchange sacred vows before God, family, and loved ones in a spirit-filled atmosphere.',
       icon: Church,
       color: 'bg-[#C85A17]',
@@ -16,20 +16,11 @@ export const Itinerary: React.FC = () => {
     {
       title: 'Royal Reception & Dinner',
       time: '01:00 PM WAT',
-      location: 'Nkem Event Center (Grand Hall)',
-      address: '32 Road by MRS Filling station, Festac, Lagos',
+      location: 'Lagos',
+      address: 'Nigeria',
       description: 'An afternoon of royal dining, heartfelt toasts, joyful dancing, cutting of the cake, and unforgettable memories.',
       icon: PartyPopper,
       color: 'bg-[#3B1F14]',
-    },
-    {
-      title: 'After-Party Celebration',
-      time: '05:00 PM WAT Till Late',
-      location: 'Nkem Event Center Lounge',
-      address: '32 Road by MRS Filling station, Festac, Lagos',
-      description: 'Celebrate into the night with great music, delicious chops, refreshing drinks, and non-stop celebration!',
-      icon: Music2,
-      color: 'bg-[#A3430B]',
     },
   ];
 
@@ -41,7 +32,7 @@ CALSCALE:GREGORIAN
 BEGIN:VEVENT
 SUMMARY:Esther & John Wedding (#EJ2026)
 DESCRIPTION:The Holy Matrimony & Wedding Celebration of Esther Adedolapo Owoseni & John Tochukwu Ezeukwu #EJ2026
-LOCATION:Nkem Event Center, 32 Road by MRS Filling station, Festac, Lagos, Nigeria
+LOCATION:Lagos, Nigeria
 DTSTART:20261107T100000Z
 DTEND:20261107T210000Z
 STATUS:CONFIRMED
@@ -58,7 +49,7 @@ END:VCALENDAR`;
     document.body.removeChild(link);
   };
 
-  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Esther+%26+John+Wedding+(%23EJ2026)&dates=20261107T100000Z/20261107T210000Z&details=The+Holy+Matrimony+%26+Wedding+Celebration+of+Esther+Adedolapo+Owoseni+%26+John+Tochukwu+Ezeukwu+%23EJ2026&location=Nkem+Event+Center,+32+Road+by+MRS+Filling+station,+Festac,+Lagos,+Nigeria`;
+  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Esther+%26+John+Wedding+(%23EJ2026)&dates=20261107T100000Z/20261107T210000Z&details=The+Holy+Matrimony+%26+Wedding+Celebration+of+Esther+Adedolapo+Owoseni+%26+John+Tochukwu+Ezeukwu+%23EJ2026&location=Lagos,+Nigeria`;
 
   return (
     <section id="itinerary" className="py-24 px-4 bg-[#F8F4EE] relative">
@@ -108,7 +99,7 @@ END:VCALENDAR`;
               </span>
               <p className="font-display font-semibold text-sm text-[#1F130E] flex items-start gap-1.5">
                 <MapPin className="w-4 h-4 text-[#C85A17] shrink-0 mt-0.5" />
-                <span>Nkem Event Center, 32 Road by MRS Filling station, Festac, Lagos</span>
+                <span>Lagos, Nigeria</span>
               </p>
             </div>
 
@@ -165,7 +156,7 @@ END:VCALENDAR`;
         </div>
 
         {/* Timeline Event Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-8">
           {events.map((event, index) => {
             const IconComponent = event.icon;
             return (

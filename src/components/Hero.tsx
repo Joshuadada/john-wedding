@@ -59,7 +59,7 @@ export const Hero: React.FC = () => {
           </div>
           <div className="flex items-center gap-1.5 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/15">
             <MapPin className="w-4 h-4 text-[#F97316]" />
-            11:00 AM WAT • Nkem Event Center, Festac, Lagos
+            11:00 AM WAT • Lagos, Nigeria
           </div>
         </motion.div>
 
