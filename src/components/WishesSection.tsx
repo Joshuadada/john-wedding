@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Send, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import type { WishMessage } from '../types/wedding';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 interface WishesProps {
   webhookUrl?: string;
@@ -20,7 +21,32 @@ export const WishesSection: React.FC<WishesProps> = ({ webhookUrl }) => {
 
   const wishesEndpoint = webhookUrl || import.meta.env.VITE_WISHES_WEBHOOK_URL;
 
-  React.useEffect(() => {
+  const fetchWishes = async () => {
+    if (isSupabaseConfigured && supabase) {
+      const { data, error } = await supabase
+        .from('wishes')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        const mappedWishes: WishMessage[] = data.map((item) => ({
+          id: item.id || `wish-${item.created_at}`,
+          name: item.name,
+          relationship: item.relationship,
+          message: item.message,
+          timestamp: item.created_at
+            ? new Date(item.created_at).toLocaleDateString(undefined, {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              })
+            : 'Recently',
+        }));
+        setWishes(mappedWishes);
+        return;
+      }
+    }
+
     if (wishesEndpoint) {
       fetch(wishesEndpoint)
         .then((res) => res.json())
@@ -29,8 +55,12 @@ export const WishesSection: React.FC<WishesProps> = ({ webhookUrl }) => {
             setWishes([...data.wishes.reverse(), ...initialWishes]);
           }
         })
-        .catch((err) => console.log('Google Sheet DB live fetch:', err));
+        .catch((err) => console.log('Legacy fetch notice:', err));
     }
+  };
+
+  useEffect(() => {
+    fetchWishes();
   }, [wishesEndpoint]);
 
   const handleWishSubmit = async (e: React.FormEvent) => {
@@ -48,6 +78,20 @@ export const WishesSection: React.FC<WishesProps> = ({ webhookUrl }) => {
     };
 
     try {
+      if (isSupabaseConfigured && supabase) {
+        const { error } = await supabase.from('wishes').insert([
+          {
+            name: newWish.name,
+            relationship: newWish.relationship,
+            message: newWish.message,
+          },
+        ]);
+
+        if (error) {
+          console.error('Supabase Wish insert error:', error);
+        }
+      }
+
       if (wishesEndpoint) {
         const params = new URLSearchParams();
         params.append('type', 'WISH');
@@ -60,7 +104,7 @@ export const WishesSection: React.FC<WishesProps> = ({ webhookUrl }) => {
           method: 'POST',
           mode: 'no-cors',
           body: params,
-        });
+        }).catch((err) => console.log('Webhook fallback notice:', err));
       }
 
       setWishes([newWish, ...wishes]);
