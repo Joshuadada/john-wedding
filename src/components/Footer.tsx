@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
         {/* Wedding Date Pill */}
         <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/20 bg-white/5 text-xs font-semibold uppercase tracking-[0.25em] text-amber-200">
           <Sparkles className="w-3.5 h-3.5 text-[#F97316]" />
-          Saturday, 7th November 2026 • Nkem Event Center, Festac, Lagos
+          Saturday, 7th November 2026 • Lagos, Nigeria
           <Sparkles className="w-3.5 h-3.5 text-[#F97316]" />
         </div>
 
