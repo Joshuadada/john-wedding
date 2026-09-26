@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Phone, MessageSquare, CheckCircle2, User, Users, Mail, Utensils, Send } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import type { RSVPData } from '../types/wedding';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 interface RSVPProps {
   webhookUrl?: string;
@@ -31,11 +32,27 @@ export const RSVP: React.FC<RSVPProps> = ({ webhookUrl }) => {
 
     setIsSubmitting(true);
 
-    const rsvpEndpoint = webhookUrl || import.meta.env.VITE_RSVP_WEBHOOK_URL;
-
     try {
+      if (isSupabaseConfigured && supabase) {
+        const { error } = await supabase.from('rsvps').insert([
+          {
+            full_name: formData.fullName,
+            phone: formData.phone,
+            email: formData.email || null,
+            attending: formData.attending,
+            guest_count: Number(formData.guestCount),
+            dietary: formData.dietary || null,
+            note: formData.note || null,
+          },
+        ]);
+
+        if (error) {
+          console.error('Supabase RSVP error:', error);
+        }
+      }
+
+      const rsvpEndpoint = webhookUrl || import.meta.env.VITE_RSVP_WEBHOOK_URL;
       if (rsvpEndpoint) {
-        // Send URLSearchParams which populates e.parameter in Apps Script (no CORS issue)
         const params = new URLSearchParams();
         params.append('type', 'RSVP');
         params.append('fullName', formData.fullName);
@@ -50,7 +67,7 @@ export const RSVP: React.FC<RSVPProps> = ({ webhookUrl }) => {
           method: 'POST',
           mode: 'no-cors',
           body: params,
-        });
+        }).catch((err) => console.log('Webhook fallback notice:', err));
       }
 
       // Celebrate with confetti
@@ -64,7 +81,6 @@ export const RSVP: React.FC<RSVPProps> = ({ webhookUrl }) => {
       setIsSubmitted(true);
     } catch (error) {
       console.error('Submission error:', error);
-      // Still set submitted locally so user UX is non-blocking
       setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
@@ -255,7 +271,7 @@ export const RSVP: React.FC<RSVPProps> = ({ webhookUrl }) => {
                 <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-2">
                   Will You Be Attending? *
                 </label>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
                     { value: 'yes', label: 'Joyfully Attend' },
                     { value: 'no', label: 'Regretfully Decline' },
