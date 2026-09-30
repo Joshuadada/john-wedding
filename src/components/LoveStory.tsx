@@ -29,28 +29,28 @@ export const LoveStory: React.FC = () => {
 
         {/* Story Tab Switcher */}
         <div className="flex justify-center mb-12">
-          <div className="bg-[#F8F4EE] p-1.5 rounded-full border border-[#E5D9CE] flex space-x-2 shadow-inner">
+          <div className="bg-[#F8F4EE] p-1.5 rounded-full border border-[#E5D9CE] flex space-x-1 sm:space-x-2 shadow-inner max-w-full overflow-x-auto">
             <button
               onClick={() => setActiveTab('john')}
-              className={`px-6 sm:px-8 py-3 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-widest transition-all duration-300 flex items-center gap-2 ${
+              className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-sm font-semibold uppercase tracking-wider sm:tracking-widest transition-all duration-300 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap ${
                 activeTab === 'john'
                   ? 'bg-[#3B1F14] text-white shadow-lg shadow-[#3B1F14]/30'
                   : 'text-[#1F130E] hover:text-[#C85A17]'
               }`}
             >
-              <Flame className={`w-4 h-4 ${activeTab === 'john' ? 'text-[#F97316]' : 'text-stone-400'}`} />
+              <Flame className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${activeTab === 'john' ? 'text-[#F97316]' : 'text-stone-400'}`} />
               His Story (John)
             </button>
 
             <button
               onClick={() => setActiveTab('esther')}
-              className={`px-6 sm:px-8 py-3 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-widest transition-all duration-300 flex items-center gap-2 ${
+              className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-sm font-semibold uppercase tracking-wider sm:tracking-widest transition-all duration-300 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap ${
                 activeTab === 'esther'
                   ? 'bg-[#C85A17] text-white shadow-lg shadow-[#C85A17]/30'
                   : 'text-[#1F130E] hover:text-[#C85A17]'
               }`}
             >
-              <Heart className={`w-4 h-4 ${activeTab === 'esther' ? 'text-amber-200 fill-current' : 'text-stone-400'}`} />
+              <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${activeTab === 'esther' ? 'text-amber-200 fill-current' : 'text-stone-400'}`} />
               Her Story (Esther)
             </button>
           </div>
@@ -150,25 +150,28 @@ export const LoveStory: React.FC = () => {
               <div className="bg-gradient-to-r from-[#3B1F14] to-[#2C1810] rounded-3xl border border-[#C85A17]/40 shadow-2xl overflow-hidden text-white">
                 <button
                   onClick={() => setShowUncut(!showUncut)}
-                  className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-white/5 transition-colors focus:outline-none"
+                  className="w-full p-4 sm:px-8 sm:py-6 flex items-start sm:items-center justify-between text-left hover:bg-white/5 transition-colors focus:outline-none gap-3"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="p-2.5 rounded-full bg-[#C85A17]/30 text-[#F97316]">
-                      <Sparkles className="w-5 h-5" />
+                  <div className="flex items-start sm:items-center gap-3 min-w-0">
+                    <span className="p-2.5 rounded-full bg-[#C85A17]/30 text-[#F97316] shrink-0 mt-0.5 sm:mt-0">
+                      <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                     </span>
-                    <div>
-                      <h4 className="font-display text-xl sm:text-2xl font-semibold text-amber-100 flex items-center gap-2">
-                        Part 2: Behind the Scenes 🤫 <span className="text-xs uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#C85A17] text-white">Uncut</span>
+                    <div className="min-w-0">
+                      <h4 className="font-display text-base sm:text-2xl font-semibold text-amber-100 flex flex-wrap items-center gap-2 leading-snug">
+                        <span>Part 2: Behind the Scenes 🤫</span>
+                        <span className="text-[10px] sm:text-xs uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#C85A17] text-white shrink-0 font-sans">
+                          Uncut
+                        </span>
                       </h4>
-                      <p className="text-xs sm:text-sm text-stone-300 font-light mt-0.5">
+                      <p className="text-xs sm:text-sm text-stone-300 font-light mt-1 sm:mt-0.5 leading-tight sm:leading-normal">
                         The hilarious truth about the proposal &amp; playing hard guy!
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-[#F97316] font-semibold text-xs uppercase tracking-widest">
-                    <span>{showUncut ? 'Hide Story' : 'Read Uncut'}</span>
-                    {showUncut ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                  <div className="flex items-center gap-1.5 text-[#F97316] font-semibold text-[11px] sm:text-xs uppercase tracking-widest shrink-0 mt-1 sm:mt-0">
+                    <span className="whitespace-nowrap">{showUncut ? 'Hide Story' : 'Read Uncut'}</span>
+                    {showUncut ? <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" /> : <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />}
                   </div>
                 </button>
 
@@ -179,7 +182,7 @@ export const LoveStory: React.FC = () => {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.4 }}
-                      className="px-8 pb-8 pt-2 border-t border-white/10 space-y-4 text-stone-200 text-base leading-relaxed"
+                      className="px-4 pb-6 sm:px-8 sm:pb-8 pt-2 border-t border-white/10 space-y-4 text-stone-200 text-sm sm:text-base leading-relaxed"
                     >
                       <p>
                         "I remember how he audaciously asked me out😅; it was the most unromantic thing I had ever heard. And I remembered how I kept on refusing because I expected him to sound more romantic 😏, but I later agreed; he must have gone to pray earnestly because how could I have said yes😂 to such a rude guy😒😅."
@@ -187,7 +190,7 @@ export const LoveStory: React.FC = () => {
                       <p>
                         "But I later discovered that he was only trying to play hard guy. I saw how my words melted his heart each time I spoke, and how my tears broke him, and how much price he was willing to pay to ensure that I was perfectly fine, and how he put me through in my works, studies and business. I have always known him to be a very selfless person, always truthful even though it hurts."
                       </p>
-                      <div className="p-4 rounded-xl bg-white/10 border border-white/15 italic text-amber-200 font-serif text-lg">
+                      <div className="p-4 rounded-xl bg-white/10 border border-white/15 italic text-amber-200 font-serif text-base sm:text-lg">
                         "To my babe: You have always led by example and you are indeed a true leader. Since the day I said yes to you, I have never regretted it, though there were times of misunderstanding, anger, hurts, but never a time of regret. I love you to the moon and back, my babe. I love you soooooo muchhhhh."
                       </div>
                     </motion.div>
